@@ -25,7 +25,7 @@ if (!empty($_SESSION["userId"])) {
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navcol-1">
-            <ul class="nav navbar-nav">
+                <ul class="nav navbar-nav">
                     <li class="nav-item" role="presentation">
                         <a class="nav-link" href="/">Home</a>
                     </li>
@@ -49,7 +49,7 @@ if (!empty($_SESSION["userId"])) {
                         <a class="nav-link" href="/includes/doLogout.php">Afmelden</a>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a class="nav-link active" href="#">Welcome back, <?php echo $_SESSION["username"] ?></a>
+                        <a class="nav-link active" href="/profile.php">Welcome back, <?php echo $_SESSION["username"] ?></a>
                     </li>
                     <?php } ?>
                 </ul>

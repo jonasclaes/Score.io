@@ -5,6 +5,8 @@ if (!isset($_SESSION)) {
     session_start();
 }
 
+// Hier komt jouw code.
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -23,13 +25,13 @@ if (!isset($_SESSION)) {
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navcol-1">
-            <ul class="nav navbar-nav">
+                <ul class="nav navbar-nav">
                     <li class="nav-item" role="presentation">
                         <a class="nav-link" href="/">Home</a>
                     </li>
                     <?php if (!empty($_SESSION["userId"])) { ?>
                     <li class="nav-item" role="presentation">
-                        <a class="nav-link active" href="/scores.php">Punten</a>
+                        <a class="nav-link" href="/scores.php">Punten</a>
                     </li>
                     <?php } ?>
                 </ul>
@@ -56,28 +58,17 @@ if (!isset($_SESSION)) {
     </nav>
     <div class="container" style="margin-top: 20px;">
         <div class="row">
-            <?php
-                $result = $mysqli->query("SELECT * FROM scores");
-
-                if ($result->num_rows) {
-                    while ($row = $result->fetch_assoc()) {
-                        ?>
-                        <div class="col-sm-6 col-md-4 col-lg-3" style="margin-bottom: 20px;">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="card-title"><?php echo $row["name"] ?></h4>
-                                    <h6 class="text-muted card-subtitle mb-2"><?php echo $row["description"] ?></h6>
-                                    <p class="card-text">Je behaalde een <?php echo $row["score"] ?> op <?php echo $row["maxScore"] ?>.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <?php
-                    }
-                }
-            ?>
+            <div class="col-sm-8 col-md-6 offset-sm-2 offset-md-3">
+                <h1>Welkom, USERNAME.</h1>
+                <p>Uw gebruikersnaam is USERNAME.<br>Uw wachtwoord is PASSWORD.</p>
+                <a class="btn btn-outline-primary btn-block" role="button" href="/profile-edit.php">Aanpassen</a>
+            </div>
         </div>
     </div>
     <script src="/assets/js/jquery.min.js"></script>
     <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+    <script>
+        // Hier komt jouw code.
+    </script>
 </body>
 </html>

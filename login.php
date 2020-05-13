@@ -46,7 +46,10 @@ if (!empty($_SESSION["userId"])) {
                         <a class="nav-link" href="/dashboard.php">Dashboard</a>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a class="nav-link active" href="#">Welcome back, <?php echo $_SESSION["username"] ?></a>
+                        <a class="nav-link" href="/includes/doLogout.php">Afmelden</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link active" href="/profile.php">Welcome back, <?php echo $_SESSION["username"] ?></a>
                     </li>
                     <?php } ?>
                 </ul>
