@@ -1,10 +1,10 @@
 <?php
 
-$timestamp = $_POST['timestamp']
-$name = $_POST['name']
-$description = $_POST['description']
-$score = $_POST['score']
-$maxScore = $_POST['maxScore']
+$timestamp = $_POST['timestamp'];
+$name = $_POST['name'];
+$description = $_POST['description'];
+$score = $_POST['score'];
+$maxScore = $_POST['maxScore'];
 
 
 include "db.php";
