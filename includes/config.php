@@ -4,5 +4,5 @@ return array(
     "MYSQL_PORT" => 3306,
     "MYSQL_USER" => "score_io",
     "MYSQL_PASSWORD" => "score_io123",
-    "MYSQL_DATABASE" => "score_io"
+    "MYSQL_DATABASE" => "scoro.io"
 );
