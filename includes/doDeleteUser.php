@@ -5,11 +5,28 @@ if (!isset($_SESSION)) {
     session_start();
 }
 
-$ID = $_POST['ID'];
-$sql = "DELETE FROM users WHERE id = '$id'";
+$errors = array();
+$json = array("errors" => &$errors);    // We pass the $errors array by reference, not by value;
 
-if (musqli_query($mysqli, $sql)) {
-    echo json_encode('User verwijderd');
+if (isset($_SESSION) && !empty($_SESSION)) {
+    $id = $_SESSION["userId"];
+
+    $result = $mysqli->query("DELETE FROM users WHERE id = '$id'");
+
+    if ($result === false || $mysqli->affected_rows === 0) {
+        array_push($errors, "Fout tijdens het verwijderen van uw account.");
+        echo json_encode($json);
+        return;
+    }
+
+    $_SESSION["userId"] = "";
+    $_SESSION["username"] = "";
+
+    session_destroy();
+    header("Location: /");
+} else {
+    array_push($errors, "Session bestaat niet of is leeg.");
+    
+    echo json_encode($json);
+    return;
 }
-else{
-    echo json_encode('Error');
