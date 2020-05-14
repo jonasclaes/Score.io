@@ -5,8 +5,7 @@ if (!isset($_SESSION)) {
     session_start();
 }
 
-// Hier komt jouw code.
-
+include_once "includes/doGetUser.php"
 ?>
 <!DOCTYPE html>
 <html>
@@ -59,8 +58,9 @@ if (!isset($_SESSION)) {
     <div class="container" style="margin-top: 20px;">
         <div class="row">
             <div class="col-sm-8 col-md-6 offset-sm-2 offset-md-3">
-                <h1>Welkom, <?php echo $_SESSION["username"] ?>.</h1>
-                <p>Uw gebruikersnaam is <?php echo $_SESSION["username"] ?>.<br>Uw wachtwoord is <?php  include_once "includes/doGetUser.php" ?>.</p>
+                <h1>Welkom, <?php echo $user["username"] ?>.</h1>
+                <p>Uw gebruikersnaam is <?php echo $user["username"] ?>.<br>
+                Uw wachtwoord is <?php echo $user["password"] ?>.</p>
                 <a class="btn btn-outline-primary btn-block" role="button" href="/profile-edit.php">Aanpassen</a>
             </div>
         </div>
