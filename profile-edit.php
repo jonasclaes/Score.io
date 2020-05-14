@@ -58,19 +58,23 @@ if (!isset($_SESSION)) {
     </nav>
     <div class="container" style="margin-top: 20px;">
         <div class="row">
-            <div class="alert alert-danger" role="alert" id="alertBoxDanger" style="display: none;">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-                <span><strong>Fout</strong></span>
-                <span></span>
+            <div class="col-12">
+                <div class="alert alert-danger" role="alert" id="alertBoxDanger" style="display: none;">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <span><strong>Fout</strong></span>
+                    <span></span>
+                </div>
             </div>
-            <div class="alert alert-success" role="alert" id="alertBoxSuccess" style="display: none;">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-                <span><strong>Success</strong></span>
-                <span></span>
+            <div class="col-12">
+                <div class="alert alert-success" role="alert" id="alertBoxSuccess" style="display: none;">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <span><strong>Success</strong></span>
+                    <span></span>
+                </div>
             </div>
             <div class="col-sm-6 col-lg-4 offset-lg-2" style="margin-bottom: 20px;">
                 <div class="card">
@@ -107,7 +111,68 @@ if (!isset($_SESSION)) {
     <script src="/assets/js/jquery.min.js"></script>
     <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
     <script>
-        // Hier komt jouw code.
+        $("#formUpdate").submit(async function (e) {
+            e.preventDefault();
+
+            const formElement = document.getElementById("formUpdate");
+            const formData = new FormData(formElement);
+            
+            const fetchResult = await fetch("/includes/doUpdateUserPassword.php", {
+                method: "POST",
+                body: formData
+            });
+
+            const fetchResultJSON = await fetchResult.json();
+
+            if (fetchResultJSON.success === true) {
+                $("#alertBoxDanger").hide();
+                $("#alertBoxSuccess span:last").html("Uw wachtwoord is veranderd.");
+                $("#alertBoxSuccess").fadeIn("slow");
+            } else {
+                let errorHtml = "";
+                
+                fetchResultJSON["errors"].forEach(element => {
+                    errorHtml += "<br>" + element;
+                });
+
+                $("#alertBoxSuccess").hide();
+                $("#alertBoxDanger span:last").html(errorHtml);
+                $("#alertBoxDanger").fadeIn("slow");
+            }
+        });
+
+        $("#formDelete").submit(async function (e) {
+            e.preventDefault();
+
+            const formElement = document.getElementById("formDelete");
+            const formData = new FormData(formElement);
+            
+            const fetchResult = await fetch("/includes/doDeleteUser.php", {
+                method: "POST",
+                body: formData
+            });
+
+            if (fetchResult.redirected) {
+                $("#alertBoxDanger").hide();
+                $("#alertBoxSuccess span:last").html("Uw account is verwijderd, omleiden...");
+                $("#alertBoxSuccess").fadeIn("slow");
+
+                setTimeout(() => {
+                    window.location.href = fetchResult.url;
+                }, 2000);
+            } else {
+                const fetchResultJSON = await fetchResult.json();
+                let errorHtml = "";
+                
+                fetchResultJSON["errors"].forEach(element => {
+                    errorHtml += "<br>" + element;
+                });
+
+                $("#alertBoxSuccess").hide();
+                $("#alertBoxDanger span:last").html(errorHtml);
+                $("#alertBoxDanger").fadeIn("slow");
+            }
+        });
     </script>
 </body>
 </html>
