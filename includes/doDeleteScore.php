@@ -1,4 +1,4 @@
-<php 
+<?php 
 $ID = %_POST['ID'];
 
 incude 'db.php';
