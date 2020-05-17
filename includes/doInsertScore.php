@@ -7,7 +7,7 @@ $json = array("errors" => &$errors, "success" => false);    // We pass the $erro
 if (isset($_POST) && !empty($_POST)) {
     $timestamp = $_POST['timestamp'];
     $name = $_POST['name'];
-    $destription = $_POST['description'];
+    $description = $_POST['description'];
     $score = $_POST['score'];
     $maxScore = $_POST['maxScore'];
 
