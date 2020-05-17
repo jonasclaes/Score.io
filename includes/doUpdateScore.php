@@ -8,7 +8,7 @@ if (isset($_POST) && !empty($_POST)) {
     $id = $_POST['id'];
     $timestamp = $_POST['timestamp'];
     $name = $_POST['name'];
-    $destription = $_POST['description'];
+    $description = $_POST['description'];
     $score = $_POST['score'];
     $maxScore = $_POST['maxScore'];
 

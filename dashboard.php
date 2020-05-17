@@ -5,8 +5,6 @@ if (!isset($_SESSION)) {
     session_start();
 }
 
-// Hier komt jouw code.
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -58,19 +56,23 @@ if (!isset($_SESSION)) {
     </nav>
     <div class="container" style="margin-top: 20px;">
         <div class="row">
-            <div class="alert alert-danger" role="alert" id="alertBoxDanger" style="display: none;">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-                <span><strong>Fout</strong></span>
-                <span></span>
+            <div class="col-12">
+                <div class="alert alert-danger" role="alert" id="alertBoxDanger" style="display: none;">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <span><strong>Fout</strong></span>
+                    <span></span>
+                </div>
             </div>
-            <div class="alert alert-success" role="alert" id="alertBoxSuccess" style="display: none;">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-                <span><strong>Success</strong></span>
-                <span></span>
+            <div class="col-12">
+                <div class="alert alert-success" role="alert" id="alertBoxSuccess" style="display: none;">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <span><strong>Success</strong></span>
+                    <span></span>
+                </div>
             </div>
             <div class="col-sm-6 col-md-4" style="margin-bottom: 20px;">
                 <div class="card">
@@ -167,7 +169,107 @@ if (!isset($_SESSION)) {
     <script src="/assets/js/jquery.min.js"></script>
     <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
     <script>
-        // Hier komt jouw code.
+        $("#formInsert").submit(async function (e) {
+            e.preventDefault();
+
+            const formElement = document.getElementById("formInsert");
+            const formData = new FormData(formElement);
+            
+            const fetchResult = await fetch("/includes/doInsertScore.php", {
+                method: "POST",
+                body: formData
+            });
+
+            const fetchResultJSON = await fetchResult.json();
+
+            if (fetchResultJSON.success === true) {
+                $("#alertBoxDanger").hide();
+                $("#alertBoxSuccess span:last").html("Score successvol toegevoegd.");
+                $("#alertBoxSuccess").fadeIn("slow");
+
+                setTimeout(() => {
+                    $("#alertBoxSuccess").fadeOut("slow");
+                }, 2000);
+            } else {
+                let errorHtml = "";
+                
+                fetchResultJSON["errors"].forEach(element => {
+                    errorHtml += "<br>" + element;
+                });
+
+                $("#alertBoxSuccess").hide();
+                $("#alertBoxDanger span:last").html(errorHtml);
+                $("#alertBoxDanger").fadeIn("slow");
+            }
+        });
+
+        $("#formUpdate").submit(async function (e) {
+            e.preventDefault();
+
+            const formElement = document.getElementById("formUpdate");
+            const formData = new FormData(formElement);
+            
+            const fetchResult = await fetch("/includes/doUpdateScore.php", {
+                method: "POST",
+                body: formData
+            });
+
+            const fetchResultJSON = await fetchResult.json();
+
+            if (fetchResultJSON.success === true) {
+                $("#alertBoxDanger").hide();
+                $("#alertBoxSuccess span:last").html("Score successvol gewijzigd.");
+                $("#alertBoxSuccess").fadeIn("slow");
+
+                setTimeout(() => {
+                    $("#alertBoxSuccess").fadeOut("slow");
+                }, 2000);
+            } else {
+                let errorHtml = "";
+                
+                fetchResultJSON["errors"].forEach(element => {
+                    errorHtml += "<br>" + element;
+                });
+
+                $("#alertBoxSuccess").hide();
+                $("#alertBoxDanger span:last").html(errorHtml);
+                $("#alertBoxDanger").fadeIn("slow");
+            }
+        });
+
+        $("#formDelete").submit(async function (e) {
+            e.preventDefault();
+
+            const formElement = document.getElementById("formDelete");
+            const formData = new FormData(formElement);
+            
+            const fetchResult = await fetch("/includes/doDeleteScore.php", {
+                method: "POST",
+                body: formData
+            });
+
+            const fetchResultJSON = await fetchResult.json();
+
+            if (fetchResultJSON.success === true) {
+                $("#alertBoxDanger").hide();
+                $("#alertBoxSuccess span:last").html("Score successvol verwijderd.");
+                $("#alertBoxSuccess").fadeIn("slow");
+
+                setTimeout(() => {
+                    $("#alertBoxSuccess").fadeOut("slow");
+                }, 2000);
+            } else {
+                let errorHtml = "";
+                
+                fetchResultJSON["errors"].forEach(element => {
+                    errorHtml += "<br>" + element;
+                });
+
+                $("#alertBoxSuccess").hide();
+                $("#alertBoxDanger span:last").html(errorHtml);
+                $("#alertBoxDanger").fadeIn("slow");
+            }
+        });
     </script>
 </body>
 </html>
