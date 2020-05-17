@@ -17,7 +17,7 @@ if (!isset($_SESSION)) {
     <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
 </head>
 <body>
-    <nav class="navbar navbar-dark navbar-expand-md bg-primary">
+       <nav class="navbar navbar-dark navbar-expand-md bg-primary">
         <div class="container">
             <a class="navbar-brand" href="/">Score.io</a>
             <button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1">
@@ -43,7 +43,7 @@ if (!isset($_SESSION)) {
                     <?php } ?>
                     <?php if (!empty($_SESSION["userId"])) { ?>
                     <li class="nav-item" role="presentation">
-                        <a class="nav-link active" href="/dashboard.php">Dashboard</a>
+                        <a class="nav-link" href="/dashboard.php">Dashboard</a>
                     </li>
                     <li class="nav-item" role="presentation">
                         <a class="nav-link" href="/includes/doLogout.php">Afmelden</a>
@@ -58,18 +58,25 @@ if (!isset($_SESSION)) {
     </nav>
     <div class="container" style="margin-top: 20px;">
         <div class="row">
-            <div class="alert alert-danger" role="alert" id="alertBoxDanger" style="display: none;">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-                <span><strong>Fout</strong></span>
-                <span></span>
+            <div class="col-sm-8 col-md-6 offset-sm-2 offset-md-3">
+                <h1>Welkom, <?php echo $_SESSION["username"] ?>.</h1>
+                <p>Uw gebruikersnaam is <?php echo $_SESSION["username"] ?>.<br>Uw wachtwoord is PASSWORD.</p>
+                <a class="btn btn-outline-primary btn-block" role="button" href="/profile-edit.php">Aanpassen</a>
             </div>
+        </div>
+    </div>
             <div class="alert alert-success" role="alert" id="alertBoxSuccess" style="display: none;">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
                 <span><strong>Success</strong></span>
+                <span></span>
+            </div>
+            <div class="alert alert-danger" role="alert" id="alertBoxDanger" style="display: none;">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <span><strong>Fout</strong></span>
                 <span></span>
             </div>
             <div class="col-sm-6 col-md-4" style="margin-bottom: 20px;">
@@ -107,6 +114,7 @@ if (!isset($_SESSION)) {
                     </div>
                 </div>
             </div>
+            
             <div class="col-sm-6 col-md-4" style="margin-bottom: 20px;">
                 <div class="card">
                     <div class="card-body">
@@ -143,6 +151,26 @@ if (!isset($_SESSION)) {
                                 <small class="form-text text-muted">Vul hier de maximum score in.</small>
                             </div>
                             <button class="btn btn-warning btn-block" type="submit">Wijzigen</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-4 offset-lg-2" style="margin-bottom: 20px;">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Wachtwoord wijzigen</h4>
+                        <form id="formUpdate">
+                            <div class="form-group">
+                                <label for="password">Wachtwoord:</label>
+                                <input class="form-control" type="password" name="password">
+                                <small class="form-text text-muted">Gelieve hier uw nieuw wachtwoord in te vullen.</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="passwordVerify">Wachtwoord verificatie:</label>
+                                <input class="form-control" type="password" name="passwordVerify">
+                                <small class="form-text text-muted">Gelieve hier uw nieuw wachtwoord opnieuw in te vullen.</small>
+                            </div>
+                            <button class="btn btn-primary btn-block" type="submit">Wijzigen</button>
                         </form>
                     </div>
                 </div>
